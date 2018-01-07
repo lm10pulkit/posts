@@ -1,0 +1,27 @@
+<%posts.forEach(function(item){%>
+	<strong><%= item.user.username%></strong>: <strong><%=item.content%></strong>
+	
+     <%item.comment.forEach(function(commento){%>
+         <br></br>
+        <%=commento.username%>:<%=commento.content%>
+        <%if(commento.userid.toString()===user._id.toString()){%>
+        <form method='post' action='/deletecomment?postid=<%=item._id%>&commentid=<%= commento._id%>'>
+         <input type='submit' value='delete'>
+        </form>
+        <%}else{%>
+         <br></br>
+        <%}%>
+     <%});%> 
+     <br></br>
+     <form method ='post' action='/comment?id=<%= item._id%>'>
+        <input type='text' name ='content' placeholder='write a comment here'>
+        <input type='submit' value='comment'>
+     </form>
+     <%if(item.user.userid.toString()===user._id.toString()){%>
+	<form method='post' action='/deletepost?id=<%=item._id%>&check=true'>
+   <input type='submit' value ='delete'>
+   </form>	
+	<%}else{%>
+	    <br></br>
+      <%}%>
+<%});%>

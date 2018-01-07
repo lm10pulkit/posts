@@ -1,0 +1,8 @@
+<h1>My Wall</h1>
+<%posts.forEach(function(item){%>
+  <h3><%= item.content%></h3>
+   <form method='post' action='/deletepost?id=<%=item._id%>'>
+   <input type='submit' value ='delete'>
+   </form>	
+   
+<%});%>
