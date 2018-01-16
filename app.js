@@ -19,7 +19,7 @@ var {save,finduser,savepost,findpost,deletepost,find,findbyid,addcomment,deletec
  // not loggecin 
  var notloggedin = function(req,res,next){
     if(req.user)
-      res.redirect('/');
+      res.redirect('/newsfeed');
     else
       next();
  }
@@ -55,15 +55,15 @@ app.use(session(
 app.use(passport.initialize());
 app.use(passport.session());
 //welcome app
-app.get('/',function(req,res){
-res.send(' posts ');
+app.get('/',notloggedin,function(req,res){
+res.render('login');
 });
 //register route
-app.get('/register',function(req,res){
+app.get('/register',notloggedin,function(req,res){
 res.render('register');
 });
 // login route
-app.get('/login',function(req,res){
+app.get('/login',notloggedin,function(req,res){
 res.render('login');
 });
 //setting up local strategy
@@ -158,8 +158,15 @@ app.post('/deletecomment',loggedin,function(req,res){
         res.redirect('/newsfeed');
     });
 } );
+//logout
+app.get('/logout',loggedin,function(req,res){
+     req.logout();
+     res.redirect('/login');
+});
 //connection to the post
-app.listen(8080,function(err){
+const port =process.env.PORT||8080;
+
+app.listen(port,function(err){
    if(err)
      console.log(err);
    else

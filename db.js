@@ -5,6 +5,7 @@ var userschema = require('./userschema.js');
 var user=mongoose.model('user', userschema);
 var postschema = require('./postschema.js');
 var post=mongoose.model('poste',postschema);
+
 var findbyid= function(id,callback){
      post.findById(id,callback);
 };
@@ -60,8 +61,3 @@ var func= function(data, callback){
     
     }
 };
-post.find({},function(err,data){
-  func(data,function(magic){
-     console.log(magic);
-  });
-});
