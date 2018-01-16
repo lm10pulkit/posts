@@ -1,6 +1,6 @@
 const mongodb= require('mongodb');
 const mongoose= require('mongoose');
-mongoose.connect('mongodb://localhost/post');
+mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost/post');
 var userschema = require('./userschema.js');
 var user=mongoose.model('user', userschema);
 var postschema = require('./postschema.js');
